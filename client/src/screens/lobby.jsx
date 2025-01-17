@@ -1,13 +1,17 @@
 import React, { useState,useCallback } from 'react';
+import { useSocket } from '../ContextProvider/SocketProvier';
 
 const LobbyScreen = () => {
     const [email,setEmail] = useState('')
     const [code,setCode] = useState('')
 
+    const socket = useSocket();
+
     const handleSubmitForm = useCallback((e) => {
         e.preventDefault();
-        console.log({email,code});
-    },[email,code]);
+        socket.emit('room:join',{ email,code })
+
+    },[email,code,socket]);
 
     return (
         <div>
