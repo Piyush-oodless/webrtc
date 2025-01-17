@@ -1,5 +1,6 @@
-import React, { useState,useCallback } from 'react';
+import React, { useState,useCallback, useEffect } from 'react';
 import { useSocket } from '../ContextProvider/SocketProvier';
+import { data } from 'react-router-dom';
 
 const LobbyScreen = () => {
     const [email,setEmail] = useState('')
@@ -12,6 +13,10 @@ const LobbyScreen = () => {
         socket.emit('room:join',{ email,code })
 
     },[email,code,socket]);
+
+    useEffect(() => {
+        socket.on('room:join',data => {console.log(`Data from BE ${data}`)})
+    },[socket])
 
     return (
         <div>
