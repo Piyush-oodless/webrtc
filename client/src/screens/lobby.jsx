@@ -1,12 +1,13 @@
 import React, { useState,useCallback, useEffect } from 'react';
 import { useSocket } from '../ContextProvider/SocketProvier';
-import { data } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LobbyScreen = () => {
     const [email,setEmail] = useState('')
     const [code,setCode] = useState('')
 
     const socket = useSocket();
+    const navigate = useNavigate();
 
     const handleSubmitForm = useCallback((e) => {
         e.preventDefault();
@@ -15,8 +16,8 @@ const LobbyScreen = () => {
     },[email,code,socket]);
 
     const handleJoinRoom = useCallback((data) => {
-        const { email,code } = data
-        console.log(email,code);
+        const { email,code } = data;
+        navigate(`/room/${code}`)
     },[])
 
     useEffect(() => {
